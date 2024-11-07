@@ -1,1 +1,17 @@
-#
+a=int(input())
+firstmatrix=[]
+for i in range(a):
+    l=list(map(int,input().split()))
+    firstmatrix.append(l)
+b=int(input())
+secondmatrix=[]
+for j in range(b):
+    q=list(map(int,input().split()))
+    secondmatrix.append(q)
+finalresult=[]
+for i in range(a):
+    result=[]
+    for j in range(b):
+        result.append(firstmatrix[i][j]+secondmatrix[i][j])
+    finalresult.append(result)
+print(finalresult)
