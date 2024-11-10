@@ -16,7 +16,7 @@ pseudo function:
    function reverseStringTest()
           string word
           print "enter the word"
-          result=reverseString(word)
+          result=reverseString(word) --> string
           print  result
     end function 
    
