@@ -3,6 +3,7 @@
 
 
 Pseudo function:
+
     function sumOfTenNumber(num) --> int
         sum = 0
         for i ..... n
@@ -11,10 +12,13 @@ Pseudo function:
            sum=sum+number
        end for
        return sum
+     end function
+
    funtion sumOfTenNumberTest()
        num=10
        result=sumOfTenNumber(num) --> int
        print result
+    end function
 
 Pseudo code:
     sumOfTenNumber()
