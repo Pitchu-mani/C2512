@@ -12,15 +12,18 @@ pseudo function
                 for i....num
                      input number
                      print " Enter the Number"
-                     if(number>highest)
+                     if(number>highest) then
                               highest=number
                      end if
                 end for
                 return highest
+      end function
+
       function findHighestNumberTest()
                num=10
-               result=findHighestNumber(num)
+               result=findHighestNumber(num) -->int
                print result
+      end function
 
 pseudo code :
          findHighestNumber()
