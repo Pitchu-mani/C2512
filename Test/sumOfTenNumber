@@ -34,7 +34,7 @@ int sumOfTenNumber(num)
     for(int i = 1 ; i<=10 ; i++)
     {
           int number;
-          cout << "Enter The Number " << "  :  " <<  i ;
+          cout << "Enter The Number  " <<   i  << " : " ;
           cin >> number;
           sum = sum + number ;
     }
