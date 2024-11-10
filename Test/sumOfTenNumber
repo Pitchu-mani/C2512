@@ -1,1 +1,55 @@
-#
+ Write a program to read 10 numbers from the user, find their sum
+
+
+
+Pseudo function:
+    function sumOfTenNumber(num) --> int
+        sum = 0
+        for i ..... n
+           input number
+           print "Enter the Number"
+           sum=sum+number
+       end for
+       return sum
+   funtion sumOfTenNumberTest()
+       num=10
+       result=sumOfTenNumber(num) --> int
+       print result
+
+Pseudo code:
+    sumOfTenNumber()
+
+
+
+
+
+
+C++ Code:
+#include <iostream>
+using namespace std;
+
+int sumOfTenNumber(num)
+{
+    int sum = 0;
+    for(int i = 1 ; i<=10 ; i++)
+    {
+          int number;
+          cout << "Enter The Number " << "  :  " <<  i ;
+          cin >> number;
+          sum = sum + number ;
+    }
+    return sum;
+}
+
+void sumOfTenNumberTest()
+{
+        int num = 10;
+        result = sumOfTenNUmber(num);
+        cout << result;
+}
+
+int main()
+{
+       sumOfTenNumberTest();
+       return 0;
+}
