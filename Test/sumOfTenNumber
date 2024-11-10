@@ -25,10 +25,11 @@ Pseudo code:
 
 
 C++ Code:
+
 #include <iostream>
 using namespace std;
 
-int sumOfTenNumber(num)
+int sumOfTenNumber(int& num)
 {
     int sum = 0;
     for(int i = 1 ; i<=10 ; i++)
@@ -48,7 +49,7 @@ void sumOfTenNumberTest()
         cout << result;
 }
 
-int main()
+int main(void)
 {
        sumOfTenNumberTest();
        return 0;
