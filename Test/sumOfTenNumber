@@ -44,7 +44,7 @@ int sumOfTenNumber(num)
 void sumOfTenNumberTest()
 {
         int num = 10;
-        result = sumOfTenNUmber(num);
+        int result = sumOfTenNUmber(num);
         cout << result;
 }
 
