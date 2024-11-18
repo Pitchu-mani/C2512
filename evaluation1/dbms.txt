@@ -1,3 +1,55 @@
+I have UNF table 
+    railway_booking 
+        booking_id, booking_number, train_id, train_name, 
+        passenger_id, passenger_name, passenger_city, 
+        journey_date, from_station, to_station, 
+        number_of_tickets, tickets_amount,
+        ticket_plus_food_amount, payment_mode, 
+
+        ticket1seat_number, ticket1_seat_price, 
+        ticket2seat_number, ticket2_seat_price, 
+        ticket3seat_number, ticket3_seat_price,
+        
+        food1_item_id, food1_item_name, food1_price, food1_qty, food1_amount,
+        food2_item_id, food2_item_name, food2_price, food2_qty, food2_amount,
+        food3_item_id, food3_item_name, food3_price, food1_qty, food3_amount,
+        food4_item_id, food4_item_name, food4_price, food1_qty, food4_amount, 
+I formed below NF tables.
+        passenger: passenger_id, passenger_name, passenger_age
+        train: train_id, train_name, route
+        seat: seat_id, seat_number, class, seat_price
+        food: item_id, item_name, price
+
+        train_booking: booking_id, booking_number, 
+            journey_date, train_id, passenger_id, number_of_tickets, 
+            tickets_amount, food_amount, total_amount, payment_mode
+            
+        train_booking_food: booking_id, item_id, quantity, amount
+        train_booking_seat: ticket_id, seat_id, price, booking_id  
+        
+My data is going to be.
+        I am Maheswaran, and I have booked tickets for my family living in city Trichy. 
+            journey_date: 2024-11-20, from_station: Trichy, to_station: Chennai, 
+            train_name: express train, number_of_tickets: 3, 
+            seat_numbers: [S1, S2, S3] each seat price is Rs.120.
+            food ordered: [samosa @ Rs.60 x 2, pop corn @ Rs.100 x 3, coffee @ Rs.40 x 1, pups @ Rs.50 x 3]
+        And 
+        I have booked tickets for my family, sister’s family, and father.
+            journey_date: 2024-11-21, from_station: Trichy, to_station: Madurai, 
+            train_name: fast train, number_of_tickets: 7,
+            seat_numbers: [A1, A2, A3, A4, A5, A6, A7] each seat price is Rs.180.
+            food ordered: [samosa @ Rs.60 x 2, pop corn @ Rs.100 x 3, coffee @ Rs.40 x 1, pups @ Rs.50 x 3]
+
+Now, I need the tables script in oracle with primary key, not null, and foreign keys.
+And I need insert statements for the tables. 
+And I need the data in tabular form for all NF tables.
+
+
+
+----------------------------------------------------SOLUTION--------------------------------------------------------------------
+
+
+
 -- Train Reservation System
 
 --Tables:
