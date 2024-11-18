@@ -1,3 +1,5 @@
+-- Train Reservation System
+
 I have UNF table 
     railway_booking 
         booking_id, booking_number, train_id, train_name, 
@@ -14,6 +16,7 @@ I have UNF table
         food2_item_id, food2_item_name, food2_price, food2_qty, food2_amount,
         food3_item_id, food3_item_name, food3_price, food1_qty, food3_amount,
         food4_item_id, food4_item_name, food4_price, food1_qty, food4_amount, 
+
 I formed below NF tables.
         passenger: passenger_id, passenger_name, passenger_age
         train: train_id, train_name, route
@@ -26,31 +29,12 @@ I formed below NF tables.
             
         train_booking_food: booking_id, item_id, quantity, amount
         train_booking_seat: ticket_id, seat_id, price, booking_id  
-        
-My data is going to be.
-        I am Maheswaran, and I have booked tickets for my family living in city Trichy. 
-            journey_date: 2024-11-20, from_station: Trichy, to_station: Chennai, 
-            train_name: express train, number_of_tickets: 3, 
-            seat_numbers: [S1, S2, S3] each seat price is Rs.120.
-            food ordered: [samosa @ Rs.60 x 2, pop corn @ Rs.100 x 3, coffee @ Rs.40 x 1, pups @ Rs.50 x 3]
-        And 
-        I have booked tickets for my family, sister’s family, and father.
-            journey_date: 2024-11-21, from_station: Trichy, to_station: Madurai, 
-            train_name: fast train, number_of_tickets: 7,
-            seat_numbers: [A1, A2, A3, A4, A5, A6, A7] each seat price is Rs.180.
-            food ordered: [samosa @ Rs.60 x 2, pop corn @ Rs.100 x 3, coffee @ Rs.40 x 1, pups @ Rs.50 x 3]
-
-Now, I need the tables script in oracle with primary key, not null, and foreign keys.
-And I need insert statements for the tables. 
-And I need the data in tabular form for all NF tables.
 
 
 
-----------------------------------------------------SOLUTION--------------------------------------------------------------------
+----------------------------------------------SOLUTION------------------------------------------------
 
 
-
--- Train Reservation System
 
 --Tables:
     -- 1. Passenger Table
@@ -289,15 +273,19 @@ And I need the data in tabular form for all NF tables.
             WHERE tbs.booking_id = b.booking_id
         );
 
-        -- 2. List passenger names who have ordered food costing more than ₹200 in total.
-        SELECT p.passenger_name
+        -- 2. Retrieve the names of passengers who ordered food costing more than ₹500 in total
+        SELECT passenger_name
         FROM passenger p
-        WHERE EXISTS (
-            SELECT 1
-            FROM train_booking_food bf
-            JOIN train_booking b ON bf.booking_id = b.booking_id
-            WHERE b.passenger_id = p.passenger_id AND bf.amount > 200
-        );
+        WHERE (
+            SELECT SUM(amount)
+            FROM train_booking_food
+            WHERE booking_id IN (
+                SELECT booking_id
+                FROM train_booking
+                WHERE passenger_id = p.passenger_id
+            )
+        ) > 500;
+
 
         -- 3. Identify bookings where the number of tickets is greater than the number of seats booked.
         SELECT b.booking_id, b.number_of_tickets
@@ -325,18 +313,14 @@ And I need the data in tabular form for all NF tables.
             )
         ) > 800;
 
-        -- 5. List passengers who booked tickets but did not order any food.
-        SELECT p.passenger_name
+        -- 5. Find passengers who booked more than 2 tickets
+        SELECT passenger_name
         FROM passenger p
-        WHERE NOT EXISTS (
-            SELECT 1
-            FROM train_booking_food bf
-            WHERE bf.booking_id IN (
-                SELECT booking_id
-                FROM train_booking
-                WHERE passenger_id = p.passenger_id
-            )
-        );
+        WHERE (
+            SELECT SUM(number_of_tickets)
+            FROM train_booking
+            WHERE passenger_id = p.passenger_id
+        ) > 2;
 
     -- Join query
         -- 1. List all passengers, their train names, and the total amounts they paid.
