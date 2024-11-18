@@ -177,6 +177,72 @@ I formed below NF tables.
 
         commit;
 
+
+
+
+Passenger Table:
+passenger_id | passenger_name | passenger_age
+1            | Maheswaran     | 40
+2            | Josh           | 60
+3            | Dhaheen        | 80
+4            | Pitchumani     | 55
+5            | Bhagya         | 95
+6            | Nayana         | 82
+
+Train Table:
+train_id | train_name        | route
+1        | Rockfort Exp      | Chennai-Trichy
+2        | Pandian Exp       | Chennai-Madurai
+3        | Mangalore Exp     | Chennai-Mangalore
+
+Train_Seat Table:
+seat_id | seat_number | class      | seat_price
+1       | S1-01       | Sleeper    | 500
+2       | S1-02       | Sleeper    | 500
+3       | S1-03       | Sleeper    | 500
+4       | A1-01       | AC         | 1000
+5       | A1-02       | AC         | 1000
+6       | A1-03       | AC         | 1000
+7       | S2-01       | Sleeper    | 500
+8       | S2-02       | Sleeper    | 500
+9       | S2-03       | Sleeper    | 500
+
+Train_Food Table:
+item_id | item_name      | price
+1       | Samosa         | 60
+2       | Coffee         | 40
+3       | Popcorn        | 100
+4       | Veg Meal       | 150
+5       | Non-Veg Meal   | 200
+
+
+Train_Booking Table:
+booking_id | booking_number | journey_date | train_id | passenger_id | number_of_tickets | ticket_amount | food_amount | total_amount | payment_mode
+1          | B001           | 2024-11-18   | 1        | 1            | 3                 | 1500          | 300         | 1800         | UPI
+2          | B002           | 2024-11-18   | 2        | 2            | 2                 | 2000          | 300         | 2300         | Card
+3          | B003           | 2024-11-18   | 3        | 3            | 1                 | 1000          | 200         | 1200         | Cash
+4          | B004           | 2024-11-19   | 1        | 4            | 1                 | 500           | 100         | 600          | UPI
+5          | B005           | 2024-11-19   | 2        | 5            | 2                 | 2000          | 400         | 2400         | UPI
+6          | B006           | 2024-11-19   | 3        | 6            | 1                 | 1000          | 200         | 1200         | Card
+
+Train_Booking_Food Table:
+booking_id | item_id | quantity | amount
+1          | 1       | 2        | 120
+1          | 2       | 2        | 80
+2          | 4       | 2        | 300
+3          | 3       | 2        | 200
+
+Train_Booking_Seat Table:
+booking_id | seat_id | price
+1          | 1       | 500
+1          | 2       | 500
+1          | 3       | 500
+2          | 4       | 1000
+2          | 5       | 1000
+3          | 6       | 1000
+
+
+
 --Queries
     -- Update query
         -- 1. Increase the price of all AC seats by 20%.
