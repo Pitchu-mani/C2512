@@ -1,1 +1,340 @@
-#
+PROBLEM 05
+
+Beginner Level Problem Statement: 
+Mastering `vi` Editor for C++ File Management
+
+`Objective`:  
+Learn how to effectively use the `vi` editor 
+to create, edit, and manage a basic C++ program, 
+focusing on the use of `vi` commands 
+for efficient file editing and navigation.
+
+---
+
+`Tasks`:
+
+1. `Create a C++ project directory`:
+   - Create a directory named `vi_cpp_exercise` to store your C++ program files.
+
+   
+            1.mkdir vi_cpp_exercise
+
+
+   
+2. `Navigate to the `vi_cpp_exercise` directory`:
+   - Use the `cd` command to move into the `vi_cpp_exercise` directory.
+
+
+            1.cd vi_cpp_exercise
+
+
+
+3. `Create a C++ program file using `vi``:
+   - Open the `vi` editor and create a file called `simple_calc.cpp`.
+
+          
+            1.vim simple_calc.cpp
+
+
+4. `Write a basic C++ program`:
+   - In the `vi` editor, write a program that adds two numbers and displays the result.
+   - Example:
+     ```cpp
+     #include <iostream>
+     using namespace std;
+
+     int main() {
+         int a, b;
+         cout << "Enter two numbers: ";
+         cin >> a >> b;
+         cout << "The sum is: " << a + b << endl;
+         return 0;
+     }
+
+
+5. `Save and exit the file`:
+   - Save the file and exit `vi` using `:wq`.
+
+             :wq
+
+6. `Reopen the file and modify the program`:
+   - Reopen `simple_calc.cpp` using `vi` and 
+   modify the program to also 
+   subtract, multiply, and divide the two numbers.
+
+
+          1.vim simple_calc.cpp
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+        int a,b;
+        cout << "Enter two numbers : ";
+        cin >> a;
+        cin >> b;
+        cout<<"The sum is : " << a + b << endl;
+        cout<<"The subtract is : " << a - b << endl;
+        cout<<"The multiply is : " << a * b << endl;
+        cout<<"The divide is : " << a/b << endl;
+  
+        return 0;
+}
+
+
+
+
+
+7. `Use `vi` to navigate and edit the file`:
+   - Use commands like `i` (insert), `x` (delete character), 
+   `dd` (delete line), and `u` (undo) to modify the code.
+   - Add additional code to handle division and 
+   print an error message for division by zero.
+
+
+
+          1.vim simple_calc.cpp
+
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+        int a,b;
+        cout << "Enter two numbers : ";
+        cin >> a;
+        cin >> b;
+        cout<<"The sum is : " << a + b << endl;
+        cout<<"The subtract is : " << a - b << endl;
+        cout<<"The multiply is : " << a * b << endl;
+        if(b!=0)
+        {
+                cout<<"The divide is : " << a/b << endl;
+        }
+        else
+        {
+                cout<<"Error : Division by zero is not allowed"<<endl;
+        }
+        return 0;
+}
+
+
+
+8. `Compile the program`:
+   - Compile the updated program using `g++` and 
+   create an executable called `simple_calc`.
+
+
+           1.g++ simple_calc.cpp -o simple_calc
+
+
+
+9. `Run the compiled program`:
+   - Run the executable to test the program and verify 
+   that it correctly adds, subtracts, multiplies, and 
+   divides two numbers.
+
+
+            1. g++ simple_calc.cpp
+            2. ./simple_calc
+
+
+
+10. `View the contents of the C++ file`:
+    - Use the `cat` command 
+    to view the contents of `simple_calc.cpp`.
+
+
+            cat simple_calc.cpp
+
+
+11. `Remove the `simple_calc.cpp` file`:
+    - After testing the program, 
+    delete the C++ file using the `rm` command.
+
+
+             rm simple_calc.cpp
+
+
+12. `Remove the project directory`:
+    - Check if the `vi_cpp_exercise` directory is empty and 
+    then remove it.
+
+
+             rmdir vi_cpp_exercise
+
+------------------------------------------------------------
+
+`Goal`:  
+By completing this task, you will gain proficiency 
+in using the `vi` editor for creating and modifying C++ programs, 
+navigating through files, editing content, and 
+saving changes effectively. 
+You will also become comfortable compiling and 
+running C++ programs on Linux using basic terminal commands.
+
+
+--------------SOLUTION--------------------------------
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+        int a,b;
+        cout << "Enter two numbers : ";
+        cin >> a;
+        cin >> b;
+        cout<<"The sum is : " << a + b << endl;
+        cout<<"The subtract is : " << a - b << endl;
+        cout<<"The multiply is : " << a * b << endl;
+        if(b!=0)
+        {
+                cout<<"The divide is : " << a/b << endl;
+        }
+        else
+        {
+                cout<<"Error : Division by zero is not allowed"<<endl;
+        }
+        return 0;
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+PROBLEM 03:
+
+Beginner Level Problem Statement: 
+Managing C++ Files and Directories in Linux
+
+`Objective`:  
+Gain hands-on experience 
+with basic Linux commands while working 
+with a C++ project by 
+    creating, 
+    editing, 
+    compiling, and 
+    running simple programs.
+
+---
+
+`Tasks`:
+
+1. Create a new directory called `my_cpp_project` for your C++ programs.
+2. Change into the `my_cpp_project` directory.
+3. Create a C++ file named `greet.cpp` 
+in the `my_cpp_project` directory.
+4. Write a C++ program inside `greet.cpp` 
+that asks the user for their name and prints a greeting message.
+5. Compile the `greet.cpp` program into an executable.
+6. Run the compiled executable and ensure 
+that it prompts for the user’s name and displays the greeting.
+7. Use a Linux command to display the contents of `greet.cpp`.
+8. Modify the `greet.cpp` file 
+to add a simple farewell message and save the changes.
+9. Compile and run the modified program 
+to ensure it works as expected.
+10. Remove the `greet.cpp` file once you're done.
+11. Check the contents of the `my_cpp_project` directory, and 
+remove the directory if it’s empty.
+
+---
+
+`Goal`:  
+Through this task, you'll practice 
+using basic Linux commands such as 
+    directory creation, 
+    text file manipulation, 
+    compiling, and 
+    running programs, 
+helping you become more familiar 
+with the Linux environment for C++ development.
+
+
+
+------------------------SOLUTION----------------------
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+void displayGreeting(const string& name)
+{
+    cout << "Hello, " << name << "! Welcome to the program." << endl;
+}
+
+void displayFarewell(const string& name)
+{
+    cout << "Goodbye, " << name << "! Have a great day." << endl;
+}
+
+int main()
+{
+        string name;
+
+        cout << "Enter name:";
+        cin >> name;
+        displayGreeting(name);
+        displayFarewell(name);
+
+        return EXIT_SUCCESS;
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+FEATURES OF LINUX:
+
+
+Linux, as an operating system, has numerous features that make it highly versatile and popular among developers, businesses, and individual users.
+
+
+1. Open Source
+Free to use: The Linux kernel and most of its distributions are free to use and modify.
+Community-driven: Thousands of developers and organizations contribute to its development and maintenance.
+
+
+2. Multitasking
+Linux can run multiple applications simultaneously without performance issues, making it highly efficient for servers and personal use.
+
+
+3. Multi-User
+Supports multiple users at the same time, ensuring individual data security and resource allocation.
+
+
+4. Portability
+Linux can run on a wide range of hardware, from servers and desktops to embedded systems and mobile devices.
+
+
+5. Stability and Reliability
+Known for its stability, Linux can run for years without crashing or requiring a reboot.
+Preferred for servers and critical systems due to its robustness.
+
+
+6. Security
+Built with strong user permissions, firewalls, and regular updates.
+Less susceptible to malware compared to other operating systems.
+Tools like SELinux (Security-Enhanced Linux) enhance its security features.
+
+
+7. Support for Programming
+Comes with compilers, interpreters, and programming tools like GCC, Python, Perl, and shell scripting.
+Widely used in software development and deployment.
+
+
+8. Variety of Distributions (Distros)
+Distributions like Ubuntu, Fedora, Debian, and CentOS cater to different needs—desktop, server, security, and more.
+
+
+9. Virtualization
+Supports virtualization technologies like KVM (Kernel-based Virtual Machine), Docker, and VirtualBox.
+
+10. Filesystem Support
+Supports a wide range of filesystems, including ext3, ext4, XFS, NTFS, FAT32, and more.
+
