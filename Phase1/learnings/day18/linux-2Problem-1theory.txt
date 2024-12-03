@@ -236,14 +236,14 @@ with a C++ project by
 3. Create a C++ file named `greet.cpp`
 in the `my_cpp_project` directory.
 
-          --> vim greet.cpp
+          --> nano greet.cpp
 
 4. Write a C++ program inside `greet.cpp` 
 that asks the user for their name and prints a greeting message.
 
 
 
-                     --> vim greet.cpp
+                     --> nano greet.cpp
 
 #include <iostream>
 #include <cstdlib>
@@ -269,7 +269,7 @@ int main()
 5. Compile the `greet.cpp` program into an executable.
 
 
-              --> g++ 
+              --> g++ greet.cpp
 
 
 
@@ -291,7 +291,7 @@ that it prompts for the user’s name and displays the greeting.
 to add a simple farewell message and save the changes.
 
 
-            --> vim greet.cpp
+            --> nano greet.cpp
 
 
 #include <iostream>
