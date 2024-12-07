@@ -1,1 +1,171 @@
-#
+Beginner Level Problem Statement: 
+Managing C++ Files and Directories in Linux
+
+`Objective`:  
+Gain hands-on experience 
+with basic Linux commands while working 
+with a C++ project by 
+    creating, 
+    editing, 
+    compiling, and 
+    running simple programs.
+
+---
+
+`Tasks`:
+
+1. Create a new directory called `my_cpp_project` for your C++ programs.
+
+           --> mkdir my_cpp_project
+
+2. Change into the `my_cpp_project` directory.
+
+          --> cd my_cpp_project
+
+3. Create a C++ file named `greet.cpp`
+in the `my_cpp_project` directory.
+
+         --> touch greet.cpp
+
+4. Write a C++ program inside `greet.cpp` 
+that asks the user for their name and prints a greeting message.
+
+
+
+          --> nano greet.cpp
+
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+void displayGreeting(const string& name)
+{
+    cout << "Hello, " << name << "! Welcome to the program." << endl;
+}
+
+int main()
+{
+        string name;
+
+        cout << "Enter name:";
+        cin >> name;
+        displayGreeting(name);
+
+        return EXIT_SUCCESS;
+}
+
+
+5. Compile the `greet.cpp` program into an executable.
+
+
+              --> g++ greet.cpp
+
+
+
+6. Run the compiled executable and ensure 
+that it prompts for the user’s name and displays the greeting.
+
+
+
+               --> g++ greet.cpp -o Test
+               -->./Test
+
+
+
+7. Use a Linux command to display the contents of `greet.cpp`.
+
+            --> cat greet.cpp
+
+8. Modify the `greet.cpp` file
+to add a simple farewell message and save the changes.
+
+
+            --> nano greet.cpp
+
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+void displayGreeting(const string& name)
+{
+    cout << "Hello, " << name << "! Welcome to the program." << endl;
+}
+void displayFarewell(const string& name)
+{
+    cout << "Goodbye, " << name << "! Have a great day." << endl;
+}
+
+int main()
+{
+        string name;
+
+        cout << "Enter name:";
+        cin >> name;
+        displayGreeting(name);
+        displayFarewell(name);
+
+        return EXIT_SUCCESS;
+}
+
+
+9. Compile and run the modified program 
+to ensure it works as expected.
+
+
+             --> g++ greet.cpp
+             -->./Test
+
+10. Remove the `greet.cpp` file once you're done.
+
+              --> rm greet.cpp
+
+              --> rm *
+
+11. Check the contents of the `my_cpp_project` directory, and 
+remove the directory if it’s empty.
+
+              --> rmdir my_cpp_project
+-----------------------------------------------------------------
+
+
+`Goal`:  
+Through this task, you'll practice 
+using basic Linux commands such as 
+    directory creation, 
+    text file manipulation, 
+    compiling, and 
+    running programs, 
+helping you become more familiar 
+with the Linux environment for C++ development.
+
+
+
+------------------------SOLUTION----------------------
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+void displayGreeting(const string& name)
+{
+    cout << "Hello, " << name << "! Welcome to the program." << endl;
+}
+
+void displayFarewell(const string& name)
+{
+    cout << "Goodbye, " << name << "! Have a great day." << endl;
+}
+
+int main()
+{
+        string name;
+
+        cout << "Enter name:";
+        cin >> name;
+        displayGreeting(name);
+        displayFarewell(name);
+
+        return EXIT_SUCCESS;
+}
