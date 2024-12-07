@@ -1,1 +1,204 @@
-#
+Beginner Level Problem Statement: 
+Mastering `vi` Editor for C++ File Management
+
+`Objective`:  
+Learn how to effectively use the `vi` editor 
+to create, edit, and manage a basic C++ program, 
+focusing on the use of `vi` commands 
+for efficient file editing and navigation.
+
+---
+
+`Tasks`:
+
+1. `Create a C++ project directory`:
+   - Create a directory named `vi_cpp_exercise` to store your C++ program files.
+
+   
+            --> mkdir vi_cpp_exercise
+
+
+   
+2. `Navigate to the `vi_cpp_exercise` directory`:
+   - Use the `cd` command to move into the `vi_cpp_exercise` directory.
+
+
+            --> cd vi_cpp_exercise
+
+
+
+3. `Create a C++ program file using `vi``:
+   - Open the `vi` editor and create a file called `simple_calc.cpp`.
+
+            --> touch simple_calc.cpp
+
+            --> vim simple_calc.cpp
+
+
+4. `Write a basic C++ program`:
+   - In the `vi` editor, write a program that adds two numbers and displays the result.
+   - Example:
+     ```cpp
+     #include <iostream>
+     using namespace std;
+
+     int main() {
+         int a, b;
+         cout << "Enter two numbers: ";
+         cin >> a >> b;
+         cout << "The sum is: " << a + b << endl;
+         return 0;
+     }
+
+
+5. `Save and exit the file`:
+   - Save the file and exit `vi` using `:wq`.
+
+             --> :wq
+
+6. `Reopen the file and modify the program`:
+   - Reopen `simple_calc.cpp` using `vi` and 
+   modify the program to also 
+   subtract, multiply, and divide the two numbers.
+
+
+          --> vim simple_calc.cpp
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+        int a,b;
+        cout << "Enter two numbers : ";
+        cin >> a;
+        cin >> b;
+        cout<<"The sum is : " << a + b << endl;
+        cout<<"The subtract is : " << a - b << endl;
+        cout<<"The multiply is : " << a * b << endl;
+        cout<<"The divide is : " << a/b << endl;
+  
+        return 0;
+}
+
+
+
+
+
+7. `Use `vi` to navigate and edit the file`:
+   - Use commands like `i` (insert), `x` (delete character), 
+   `dd` (delete line), and `u` (undo) to modify the code.
+   - Add additional code to handle division and 
+   print an error message for division by zero.
+
+
+
+          -->  vim simple_calc.cpp
+
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+        int a,b;
+        cout << "Enter two numbers : ";
+        cin >> a;
+        cin >> b;
+        cout<<"The sum is : " << a + b << endl;
+        cout<<"The subtract is : " << a - b << endl;
+        cout<<"The multiply is : " << a * b << endl;
+        if(b!=0)
+        {
+                cout<<"The divide is : " << a/b << endl;
+        }
+        else
+        {
+                cout<<"Error : Division by zero is not allowed"<<endl;
+        }
+        return 0;
+}
+
+
+
+8. `Compile the program`:
+   - Compile the updated program using `g++` and 
+   create an executable called `simple_calc`.
+
+
+           --> g++ -o simple_calc simple_calc.cpp
+
+
+
+9. `Run the compiled program`:
+   - Run the executable to test the program and verify 
+   that it correctly adds, subtracts, multiplies, and 
+   divides two numbers.
+
+
+            --> g++ simple_calc.cpp
+            -->  ./simple_calc
+
+
+
+10. `View the contents of the C++ file`:
+    - Use the `cat` command 
+    to view the contents of `simple_calc.cpp`.
+
+
+            --> cat simple_calc.cpp
+
+
+11. `Remove the `simple_calc.cpp` file`:
+    - After testing the program, 
+    delete the C++ file using the `rm` command.
+
+
+            -->  rm simple_calc.cpp
+
+
+12. `Remove the project directory`:
+    - Check if the `vi_cpp_exercise` directory is empty and 
+    then remove it.
+
+
+             --> rmdir vi_cpp_exercise
+
+------------------------------------------------------------
+
+`Goal`:  
+By completing this task, you will gain proficiency 
+in using the `vi` editor for creating and modifying C++ programs, 
+navigating through files, editing content, and 
+saving changes effectively. 
+You will also become comfortable compiling and 
+running C++ programs on Linux using basic terminal commands.
+
+
+--------------SOLUTION--------------------------------
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+        int a,b;
+        cout << "Enter two numbers : ";
+        cin >> a;
+        cin >> b;
+        cout<<"The sum is : " << a + b << endl;
+        cout<<"The subtract is : " << a - b << endl;
+        cout<<"The multiply is : " << a * b << endl;
+        if(b!=0)
+        {
+                cout<<"The divide is : " << a/b << endl;
+        }
+        else
+        {
+                cout<<"Error : Division by zero is not allowed"<<endl;
+        }
+        return 0;
+}
