@@ -1,1 +1,204 @@
-#
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Function prototypes
+void displayMainMenu();
+void displayDashboard(const string& userName);
+void userDetails(const string& userName);
+void updateProfile();
+void registeredVehicles();
+void registerNewVehicle();
+void searchParkingSpot();
+void parkingSpotDetails();
+void exitSystem();
+
+int main() {
+    int mainChoice;
+    string userName;
+
+    do {
+        displayMainMenu();
+        cin >> mainChoice;
+
+        switch (mainChoice) {
+        case 1: { // Register User
+            string name, email, phone, password;
+            cout << "\n--- Register User ---\n";
+            cout << "Enter Name: ";
+            cin.ignore();
+            getline(cin, name);
+            cout << "Enter Email: ";
+            getline(cin, email);
+            cout << "Enter Phone Number: ";
+            getline(cin, phone);
+            cout << "Enter Password: ";
+            getline(cin, password);
+            cout << "\nRegistration Successful! Returning to Main Menu...\n";
+            break;
+        }
+        case 2: { // Login User
+            string name, password;
+            cout << "\n--- Login User ---\n";
+            cout << "Enter Name: ";
+            cin.ignore();
+            getline(cin, name);
+            cout << "Enter Password: ";
+            getline(cin, password);
+
+            cout << "\nLogin Successful! Welcome, " << name << "!\n";
+            userName = name;
+            displayDashboard(userName);
+            break;
+        }
+        case 3:
+            cout << "Exiting the system. Goodbye!\n";
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
+        }
+    } while (mainChoice != 3);
+
+    return 0;
+}
+
+// Main Menu
+void displayMainMenu() {
+    cout << "\n--- Smart Parking System ---\n";
+    cout << "1. Register User\n";
+    cout << "2. Login User\n";
+    cout << "3. Exit\n";
+    cout << "Enter your choice: ";
+}
+
+// User Dashboard
+void displayDashboard(const string& userName) {
+    int dashboardChoice;
+
+    do {
+        cout << "\n--- Dashboard ---\n";
+        cout << "1. User Details\n";
+        cout << "2. Update Profile\n";
+        cout << "3. Registered Vehicles\n";
+        cout << "4. Register New Vehicle\n";
+        cout << "5. Search Parking Spot\n";
+        cout << "6. Parking Spot Details\n";
+        cout << "7. Go Back\n";
+        cout << "8. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> dashboardChoice;
+
+        switch (dashboardChoice) {
+        case 1:
+            userDetails(userName);
+            break;
+        case 2:
+            updateProfile();
+            break;
+        case 3:
+            registeredVehicles();
+            break;
+        case 4:
+            registerNewVehicle();
+            break;
+        case 5:
+            searchParkingSpot();
+            break;
+        case 6:
+            parkingSpotDetails();
+            break;
+        case 7:
+            cout << "Returning to Login Page...\n";
+            return;
+        case 8:
+            exitSystem();
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
+        }
+    } while (dashboardChoice != 7 && dashboardChoice != 8);
+}
+
+// User Details
+void userDetails(const string& userName) {
+    cout << "\n--- User Details ---\n";
+    cout << "Name: " << userName << "\n";
+    cout << "Email: user@example.com\n";
+    cout << "Phone: 1234567890\n";
+}
+
+// Update Profile
+void updateProfile() {
+    cout << "\n--- Update Profile ---\n";
+    cout << "Feature not implemented yet.\n";
+}
+
+// Registered Vehicles
+void registeredVehicles() {
+    cout << "\n--- Registered Vehicles ---\n";
+    cout << "Vehicle 1: ABC123, Model: Sedan\n";
+    cout << "Vehicle 2: XYZ789, Model: SUV\n";
+}
+
+// Register New Vehicle
+void registerNewVehicle() {
+    string vehicleName, model, number;
+    cout << "\n--- Register New Vehicle ---\n";
+    cout << "Enter Vehicle Name: ";
+    cin.ignore();
+    getline(cin, vehicleName);
+    cout << "Enter Vehicle Model: ";
+    getline(cin, model);
+    cout << "Enter Vehicle Number: ";
+    getline(cin, number);
+    cout << "\nVehicle Registered Successfully!\n";
+}
+
+// Search Parking Spot
+void searchParkingSpot() {
+    string parkingSpotId;
+    cout << "\n--- Search Parking Spot ---\n";
+    cout << "Enter Parking Spot ID: ";
+    cin >> parkingSpotId;
+
+    cout << "\nParking Spot Details:\n";
+    cout << "Spot ID: " << parkingSpotId << "\n";
+    cout << "Charge: $10/hour\n";
+    cout << "Status: Available\n";
+
+    int spotChoice;
+    cout << "\n1. Reserve the Spot\n";
+    cout << "2. Release the Spot\n";
+    cout << "3. Go Back\n";
+    cout << "Enter your choice: ";
+    cin >> spotChoice;
+
+    switch (spotChoice) {
+    case 1:
+        cout << "Enter Vehicle Details to Reserve the Spot.\n";
+        break;
+    case 2:
+        cout << "Releasing the Spot...\n";
+        break;
+    case 3:
+        cout << "Returning to Previous Menu...\n";
+        break;
+    default:
+        cout << "Invalid choice. Returning to Previous Menu...\n";
+    }
+}
+
+// Parking Spot Details
+void parkingSpotDetails() {
+    cout << "\n--- Parking Spot Details ---\n";
+    cout << "Spot 1: ID: P001, Charge: $10/hour, Status: Available\n";
+    cout << "Spot 2: ID: P002, Charge: $15/hour, Status: Occupied\n";
+    cout << "Spot 3: ID: P003, Charge: $12/hour, Status: Available\n";
+}
+
+// Exit System
+void exitSystem() {
+    cout << "Exiting the system. Goodbye!\n";
+    exit(0);
+}
