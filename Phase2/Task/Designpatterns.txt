@@ -1,0 +1,66 @@
+Refactoring guru
+
+Design patterns
+             reusable solutions
+             blueprint for structuring and solving recurring design challenges in software development.
+             Design patterns can improve code readability, scalability, and maintainability
+
+
+1.Creational patterns:
+             Creational patterns deal with object creation mechanisms, aiming to create objects in a manner suitable to the situation.
+        1.Prototype Pattern:
+              Purpose:
+                    The Prototype pattern is used to create new objects by copying an existing object (the prototype) instead of instantiating it directly.
+                    
+                    Key Characteristics:
+                    Cloning: Instead of creating objects from scratch, new objects are created by copying an existing object.
+                    Independence: Changes to the prototype don’t affect existing copies.
+                    Use Cases:
+                    When creating an object is expensive or complex.
+                    When you need to avoid subclasses or initialization logic for new objects.
+                    Example:
+                    Cloning a shape object to create new shapes:
+        2. Singleton Pattern
+                Purpose:
+                The Singleton pattern ensures that a class has only one instance and provides a global point of access to that instance.
+                
+                Key Characteristics:
+                Single Instance: Guarantees that only one object of the class exists throughout the application.
+                Global Access: Provides a way to access the single instance from anywhere.
+                Use Cases:
+                Configuration management (e.g., a logging service, database connection).
+                Resource-heavy objects that should only be initialized once.
+                Example:
+                A logger service in an application:
+                 
+
+2.structural patterns 
+         Decorator:
+              The Decorator pattern allows you to dynamically add new functionality to an object without modifying its structure. This is done by "decorating" an object with additional behavior.
+
+        Key Idea:
+        Attach additional responsibilities to an object at runtime.
+        Keeps the core object unmodified while extending its behavior.
+        Example:
+        Imagine a coffee shop where you can order a coffee and then decorate it with different ingredients (like milk, sugar, or whipped cream) without changing the original coffee object.
+
+3.behavioral patterns
+         strategy:
+
+               The Strategy pattern allows you to define a family of algorithms, encapsulate each one, and make them interchangeable.
+                This enables the algorithm to be selected at runtime without altering the clients that use it.
+
+              Key Idea:
+                  Different algorithms (strategies) for a task can be swapped out easily.
+                Example:
+                Imagine a payment system where you can choose between different payment methods (credit card, PayPal, or crypto).
+
+
+       state:
+
+            The State pattern allows an object to change its behavior when its internal state changes. It provides a clean way to implement state-dependent behavior.
+            
+            Key Idea:
+            Encapsulate state-specific behavior into separate classes and switch between them dynamically.
+            Example:
+            Consider a music player that can be in different states (Playing, Paused, Stopped).
