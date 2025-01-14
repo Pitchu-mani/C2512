@@ -23,9 +23,9 @@ public:
 int findSum(const vector<LabTest> &input)
 {
     int sum = 0;
-    for (const auto &test : input)
+    for (auto &test : input)
     {
-        sum += test.getResultValue();
+        sum = sum+test.getResultValue();
     }
     return sum;
 }
@@ -59,11 +59,11 @@ int main()
     cin >> n;
 
     vector<LabTest> input;
-    for (int i = 0; i < n; ++i)
+    for (int i = 1; i < n; ++i)
     {
         string testId;
         double resultValue;
-        cout << "Enter test ID and result value for test " << i + 1 << ":" << endl;
+        cout << "Enter test ID and result value for test " << i << ":" << endl;
         cin >> testId >> resultValue;
         LabTest test(testId, resultValue);
         input.push_back(test);
@@ -73,7 +73,11 @@ int main()
     cout << "The sum of results is: " << result << endl;
 
     int resultFirstMin = findMinInFirstHalf(input);
-    cout << "The minimum value in the first half is: " << resultFirstMin << endl;
+    cout << "The min in first half is: " << resultFirstMin << endl;
 
-    int resultSecondMax = findMaxInSecondHalf
+    int resultSecondMax = findMaxInSecondHalf(input);
+    cout<<"The max in the second half is :" << resultSecondMax << endl;
 
+    return 0;
+
+}
