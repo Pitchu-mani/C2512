@@ -59,7 +59,7 @@ int main()
     cin >> n;
 
     vector<LabTest> input;
-    for (int i = 1; i < n; ++i)
+    for (int i = 1; i <= n; ++i)
     {
         string testId;
         double resultValue;
