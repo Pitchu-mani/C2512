@@ -31,18 +31,18 @@ void client(const vector<LabTest>& labTests, int& write_end_fd1, int& read_end_f
     write(write_end_fd1, &size, sizeof(size));
 
 
-    double buffer[size];
+    double resultValues[size];   // resultValues means buffer
     for(int i=0;i<labTests.size();i++)
     {
-        buffer[i]=(labTests[i].getResultValue());
+        resultValues[i]=(labTests[i].getResultValue());
     }
 
-    write(write_end_fd1, buffer , sizeof(buffer));
+    write(write_end_fd1, resultValues , sizeof(resultValues));
     close(write_end_fd1);
 
     sleep(1);
 
-    double sum = 0;
+    double sum;
     read(read_end_fd2, &sum, sizeof(double));
 
     cout << "Total sum : " << sum << endl;
@@ -53,14 +53,14 @@ void server(int& read_end_fd1, int& write_end_fd2) {
     int size;
     read(read_end_fd1, &size , sizeof(size));
 
-    double result[size];
-    read(read_end_fd1, result , size * sizeof(double));
+    double resultValues[size];
+    read(read_end_fd1, resultValues , size * sizeof(double));
 
     cout << "Server: Received results from client." << endl;
     close(read_end_fd1);
 
     double sum = 0;
-    findSum(result, size, sum);
+    findSum(resultValues , size, sum);
 
     write(write_end_fd2, &sum, sizeof(sum));
     cout << "Server: Sent sum back to client: " << sum << endl;
@@ -105,7 +105,7 @@ int main() {
 
     {
 		pid = fork();
-                if(0==pid){
+        if(0==pid){
 			close(read_end_fd1);
 			client(labTests,write_end_fd1,read_end_fd2);
 			return 0;
