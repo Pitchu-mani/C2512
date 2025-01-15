@@ -53,14 +53,14 @@ void server(int& read_end_fd1, int& write_end_fd2) {
     int size;
     read(read_end_fd1, &size , sizeof(size));
 
-    double a[size];
-    read(read_end_fd1, a , size * sizeof(double));
+    double result[size];
+    read(read_end_fd1, result , size * sizeof(double));
 
     cout << "Server: Received results from client." << endl;
     close(read_end_fd1);
 
     double sum = 0;
-    findSum(a, size, sum);
+    findSum(result, size, sum);
 
     write(write_end_fd2, &sum, sizeof(sum));
     cout << "Server: Sent sum back to client: " << sum << endl;
@@ -105,7 +105,7 @@ int main() {
 
     {
 		pid = fork();
-        if(0==pid){
+                if(0==pid){
 			close(read_end_fd1);
 			client(labTests,write_end_fd1,read_end_fd2);
 			return 0;
