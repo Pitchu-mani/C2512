@@ -20,47 +20,50 @@ public:
     }
 };
 
-void findSum(const vector<double>& results, double& sum) {
-    for (const auto& value : results) {
-        sum += value;
+void findSum(double a[], int size, double& sum) {
+    for (int i=0; i<size;i++) {
+        sum = sum + a[i];
     }
 }
 
-void client(const vector<LabTest>& labTests, int write_end_fd1, int read_end_fd2) {
+void client(const vector<LabTest>& labTests, int& write_end_fd1, int& read_end_fd2) {
     int size = labTests.size();
     write(write_end_fd1, &size, sizeof(size));
 
-    vector<double> resultValues;
-    for (const auto& test : labTests) {
-        resultValues.push_back(test.getResultValue());
-    }
-    write(write_end_fd1, resultValues.data(), resultValues.size() * sizeof(double));
 
-    cout << "Client: Sent results to the server." << endl;
+    double buffer[size];
+    for(int i=0;i<labTests.size();i++)
+    {
+        buffer[i]=(labTests[i].getResultValue());
+    }
+
+    write(write_end_fd1, buffer , sizeof(buffer));
     close(write_end_fd1);
+
+    sleep(1);
 
     double sum = 0;
     read(read_end_fd2, &sum, sizeof(double));
 
-    cout << "Total sum received by client: " << sum << endl;
+    cout << "Total sum : " << sum << endl;
     close(read_end_fd2);
 }
 
-void server(int read_end_fd1, int write_end_fd2) {
+void server(int& read_end_fd1, int& write_end_fd2) {
     int size;
-    read(read_end_fd1, &size, sizeof(size));
+    read(read_end_fd1, &size , sizeof(size));
 
-    vector<double> results(size);
-    read(read_end_fd1, results.data(), size * sizeof(double));
+    double a[size];
+    read(read_end_fd1, a , size * sizeof(double));
 
-    cout << "Server: Received results from the client." << endl;
+    cout << "Server: Received results from client." << endl;
     close(read_end_fd1);
 
     double sum = 0;
-    findSum(results, sum);
+    findSum(a, size, sum);
 
     write(write_end_fd2, &sum, sizeof(sum));
-    cout << "Server: Sent sum back to the client: " << sum << endl;
+    cout << "Server: Sent sum back to client: " << sum << endl;
     close(write_end_fd2);
 }
 
@@ -80,28 +83,43 @@ int main() {
 
     int pipe_fd1[2];
     int pipe_fd2[2];
-    if (pipe(pipe_fd1) == -1 || pipe(pipe_fd2) == -1) {
+    if(pipe(pipe_fd1)==-1)
+    {
         perror("pipe");
-        cout << "Pipe creation failed." << endl;
+        cout << "pipe not created" << endl;
+        return 1;
+    }
+	if(pipe(pipe_fd2)==-1)
+    {
+        perror("pipe");
+        cout << "pipe not created" << endl;
         return 1;
     }
 
-    pid_t pid = fork();
-    if (pid == 0) {
-        // Child process (Client)
-        close(pipe_fd1[0]); // Close unused read end of pipe 1
-        close(pipe_fd2[1]); // Close unused write end of pipe 2
-        client(labTests, pipe_fd1[1], pipe_fd2[0]);
-        return 0;
-    } else if (pid > 0) {
-        // Parent process (Server)
-        close(pipe_fd1[1]); // Close unused write end of pipe 1
-        close(pipe_fd2[0]); // Close unused read end of pipe 2
-        server(pipe_fd1[0], pipe_fd2[1]);
-    } else {
-        perror("fork");
-        return 1;
+    int& read_end_fd1 = pipe_fd1[0];
+    int& write_end_fd1 = pipe_fd1[1];
+    int& write_end_fd2 = pipe_fd2[1];
+    int& read_end_fd2 = pipe_fd2[0];
+
+    pid_t pid = -1;
+
+    {
+		pid = fork();
+        if(0==pid){
+			close(read_end_fd1);
+			client(labTests,write_end_fd1,read_end_fd2);
+			return 0;
+		}
     }
 
+	{
+		pid = fork();
+		if(0==pid){
+			close(write_end_fd1);
+			server(read_end_fd1,write_end_fd2);
+			return 0;
+		}
+	}
+    sleep(2);
     return 0;
 }
