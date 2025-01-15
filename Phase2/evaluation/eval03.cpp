@@ -11,42 +11,41 @@ using namespace std;
 
 class labTest {
 private:
-	string labTestId;
-	int result;
+	string testId;
+	double resultValue;
 
 public:
-	labTest(string labTestId, int result):labTestId(labTestId),result(result) {}
+    LabTest(string p_TestID, double p_ResultValue)
+        : testId(p_TestID), resultValue(p_ResultValue) {}
 
-	int getresult() {
-		return result;
-	}
+    double getResultValue() const {
+        return resultValue;
+    }
 };
 
-void findSum(int a[],int& sum) {
-	for(int i = 0; i<5; i++) {
-		sum = sum + a[i];
-	}
+
+void findSum(const vector<labTest>& labTests, double& sum) {
+    for (auto& test : labtests) {
+        sum += test.getResultValue();
+    }
 }
 
-void client( vector<labTest>& vec, int& write_end_fd1, int& read_end_fd2){
-	int size =vec.size();
+
+void client( vector<labTest>& labTests, int& write_end_fd1, int& read_end_fd2){
+	int size =labtests.size();
 	write(write_end_fd1, &size, 4);
 	int buffer[size];
-	for(int i = 0; i < vec.size(); i++){
-		buffer[i]=(vec[i].getresult());
+	for(int i = 0; i < labtests.size(); i++){
+		buffer[i]=(labTests[i].getResultValue());
 	}
-	write(write_end_fd1,
-	buffer,
-	sizeof(buffer));
+	write(write_end_fd1, buffer, sizeof(buffer));
 	
 	cout << "client : " << buffer[1] << endl;
 	close(write_end_fd1);
 	sleep(2);
 
 	int sum=0;
-	read(read_end_fd2,
-	&sum,
-	sizeof(int));
+	read(read_end_fd2, &sum, sizeof(int));
 
 	cout << "total sum : "<< sum << endl;
 	close(read_end_fd2);
@@ -59,9 +58,7 @@ void server(int& read_end_fd1,int& write_end_fd2){
 
 	int size;
 
-	read(read_end_fd1,
-	&size,
-	sizeof(size));
+	read(read_end_fd1,&size,sizeof(size));
 
 	int a[size];
 
@@ -73,25 +70,31 @@ void server(int& read_end_fd1,int& write_end_fd2){
 	close(read_end_fd1);
 	int s= 0; 
 	findSum(a,s);
-	write(write_end_fd2,
-	&s,
-	sizeof(s));
+	write(write_end_fd2, &s, sizeof(s));
 	cout << "sum sent : " <<s<< endl;
 	close(write_end_fd2);
 
 }
 
 int main() {
-	vector<labTest>vec;
+	vector<labTest>labTests;
 	int sum = 0;
 	int min = INT_MAX;
 	int max = INT_MIN;
 
-	vec.emplace_back("am1",2);
-	vec.emplace_back("am2",5);
-	vec.emplace_back("am3",6);
-	vec.emplace_back("am4",3);
-	vec.emplace_back("am5",1);
+    int n;
+    cout << "Enter the number of lab tests: " << endl;
+    cin >> n;
+
+    vector<LabTest> labTests;
+    for (int i = 1; i <= n; ++i) {
+        string testId;
+        double resultValue;
+        cout << "Enter test ID and result value for test " << i << ":" << endl;
+        cin >> testId >> resultValue;
+        LabTest test(testId, resultValue);
+        labTests.push_back(test);
+    }
 
     int pipe_fd1[2];
     int pipe_fd2[2];
