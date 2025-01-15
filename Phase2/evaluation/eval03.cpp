@@ -77,11 +77,6 @@ void server(int& read_end_fd1,int& write_end_fd2){
 }
 
 int main() {
-	vector<labTest>labTests;
-	int sum = 0;
-	int min = INT_MAX;
-	int max = INT_MIN;
-
     int n;
     cout << "Enter the number of lab tests: " << endl;
     cin >> n;
