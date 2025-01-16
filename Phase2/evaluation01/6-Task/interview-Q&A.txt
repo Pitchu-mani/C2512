@@ -1,4 +1,185 @@
+25. const keyword:
 
+Used to define constants and prevent modifications. It can be used with variables, pointers, and member functions. In function the member data will be constant.
+
+
+26. OOP concept with code:
+
+Example illustrating inheritance, polymorphism, and encapsulation:
+
+
+class Animal {
+    protected:
+        std::string name;
+    public:
+        virtual void sound() const = 0; // Pure virtual function
+};
+
+class Dog : public Animal {
+    public:
+        Dog(const std::string &dogName) { name = dogName; }
+        void sound() const override {
+            std::cout << name << " says Woof!" << std::endl;
+        }
+};
+
+Inheritance : Animal is the base class.Dog is the derived class that inherits from Animal.
+Polymorphism : The sound() function in Animal is a pure virtual function, making Animal an abstract class. This means any class inheriting from Animal must provide an implementation of sound().Dog provides its specific implementation of sound(), overriding the base class's function. This is runtime polymorphism as the method that gets called depends on the actual type of the object.
+Encapsulation : The name attribute in Animal is protected, meaning it can be accessed only within the class itself and by derived classes, but not by other parts of the program.
+
+
+27. Operator overloading code example:
+
+Overloading the << operator
+
+friend std::ostream& operator<<(std::ostream& os, const Person& person) {
+        os << "Name: " << person.name << ", Age: " << person.age;
+        return os;
+    }
+};
+
+28. Set minimum balance in code for bank:
+
+#include <iostream>
+
+class BankAccount {
+    private:
+        static const int MIN_BALANCE = 100.0;
+        double balance;
+
+    public:
+        BankAccount(double initialBalance) {
+            balance = (initialBalance >= MIN_BALANCE) ? initialBalance : MIN_BALANCE;
+        }
+
+        void displayBalance() const {
+            std::cout << "Current balance: $" << balance << std::endl;
+        }
+};
+
+int main() {
+    BankAccount account1(150.0);  // Initial balance is above minimum
+    BankAccount account2(50.0);   // Initial balance is below minimum
+
+    account1.displayBalance();    // Output: Current balance: $150
+    account2.displayBalance();    // Output: Current balance: $100
+
+    return 0;
+}
+
+
+29. Replace space in a string with an underscore:
+
+    std::string replaceSpaces(std::string str) {
+    std::replace(str.begin(), str.end(), ' ', '_');
+    return str;
+}
+
+31. Create a class named Student and print using an array of objects:
+
+class Student {
+    std::string name;
+    int id;
+public:
+    Student(const std::string &n, int i) : name(n), id(i) {}
+    void display() const {
+        std::cout << "Name: " << name << ", ID: " << id << std::endl;
+    }
+};
+
+int main() {
+    Student students[] = {Student("Alice", 1), Student("Bob", 2)};
+    for (const auto &student : students) {
+        student.display();
+    }
+    return 0;
+}
+
+32. Explain different OOP concepts:
+
+Encapsulation: Bundling data and methods.
+
+Abstraction: Hiding complex details.
+
+Inheritance: Acquiring properties of another class.
+
+Polymorphism: Multiple forms, e.g., method overriding.
+
+
+33. Operator overloading example using =:
+
+class Class {
+    int value;
+public:
+    Class& operator=(const Class &other) {
+        if (this != &other) {
+            value = other.value;
+        }
+        return *this;
+    }
+};
+
+34. Add sorting to the class:
+
+class MyClass {
+    std::vector<int> data;
+public:
+    void sortData() {
+        std::sort(data.begin(), data.end());
+    }
+};
+
+35. Coding examples:
+
+Run time polymorphism:
+
+class Base {
+    public:
+        virtual void show() {
+            std::cout << "Base class" << std::endl;
+        }
+};
+class Derived : public Base {
+    public:
+        void show() override {
+            std::cout << "Derived class" << std::endl;
+        }
+};
+
+Sum and average of numbers from a dynamically allocated array:
+
+void calculateSumAndAvg(const std::vector<int>& arr, int &sum, double &avg) {
+    sum = std::accumulate(arr.begin(), arr.end(), 0);
+    avg = static_cast<double>(sum) / arr.size();
+}
+
+
+36. Theory explanations:
+
+Threads and Synchronization: Threads allow concurrent execution; synchronization prevents data races.
+
+Constructor and Destructor: Constructor initializes objects, destructor cleans up.
+
+Types of Constructors: Default, parameterized, copy constructors.
+
+Difference between Structure and Class: Structures have public members by default, classes it is private. 
+Class encourages encapsulation, data hiding, and object-oriented features like inheritance and polymorphism.
+
+
+37. Smart pointers:
+
+Smart pointers in C++ (e.g., std::shared_ptr, std::unique_ptr and std::weak_ptr) manage dynamic memory automatically, preventing memory leaks.
+
+
+38. Detailed explanation of OOP concepts with examples:
+
+Inheritance: Inheritance in C++ is a mechanism that allows a new class (derived class) to acquire the properties and behaviors (members and methods) of an existing class (base class).
+
+Polymorphism: Polymorphism in C++ is the ability of a single function, operator, or object to behave differently based on the context
+
+Encapsulation: Encapsulation in C++ is the process of bundling data (variables) and methods (functions) that operate on the data into a single unit, typically a class, while restricting direct access to some of the class's components.
+
+Abstraction: Abstraction in C++ is the concept of hiding the implementation details and showing only the necessary features.
 40. Access Specifiers in C++
 
 Access specifiers define the scope and accessibility of members (variables or methods) within a class.
