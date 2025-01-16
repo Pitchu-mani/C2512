@@ -12,14 +12,14 @@ using namespace std;
 
 class labTest {
 private:
-    string labTestId;
-    double result;
+    string testId;
+    double resultValue;
 
 public:
-    labTest(string labTestId, double result) : labTestId(labTestId), result(result) {}
+    labTest(string testId, double resultValue) : testId(testId), resultValue(resultValue) {}
 
-    double getresult() const {
-        return result;
+    double getresultValue() const {
+        return resultValue;
     }
 };
 
@@ -29,7 +29,7 @@ struct Message {
 };
 
 void client(int msgid) {
-    vector<labTest> tests = {
+    vector<labTest> labTests = {
         labTest("101", 3.4), 
         labTest("102", 7.5), 
         labTest("103", 8.9), 
@@ -37,12 +37,12 @@ void client(int msgid) {
         labTest("105", 9.7)
     };
 
-    int size = tests.size();
+    int size = labTests.size();
     Message msg;
     msg.msg_type = 1;
 
     for (int i = 0; i < size; ++i) {
-        msg.data[i] = tests[i].getresult();
+        msg.data[i] = labTests[i].getresultValue();
     }
 
     cout << "Client sending test results: ";
