@@ -28,7 +28,7 @@ void findSum(const vector<LabTest>& labTests, double& sum) {
 }
 
 void findMinInFirstHalf(const vector<LabTest>& labTests, double& min, int n) {
-    for (int i = 0; i < n / 2; i++) 
+    for (int i = 0; i < n / 2; i++){
         min = min < labTests[i].getResultValue() ? min : labTests[i].getResultValue();
     }
 }
@@ -71,3 +71,4 @@ int main() {
 
     return 0;
 }
+
