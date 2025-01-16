@@ -20,34 +20,34 @@ public:
     }
 };
 
-int findSum(const vector<LabTest> &input)
+int findSum(const vector<LabTest> &LabTests)
 {
     int sum = 0;
-    for (auto &test : input)
+    for (auto &test : LabTests)
     {
         sum = sum+test.getResultValue();
     }
     return sum;
 }
 
-int findMinInFirstHalf(const vector<LabTest> &input)
+int findMinInFirstHalf(const vector<LabTest> &LabTests)
 {
     int min = INT_MAX;
-    int n = input.size();
+    int n = LabTests.size();
     for (int i = 0; i < n / 2; ++i)
     {
-        min = (min < input[i].getResultValue()) ? min : input[i].getResultValue();
+        min = (min < LabTests[i].getResultValue()) ? min : LabTests[i].getResultValue();
     }
     return min;
 }
 
-int findMaxInSecondHalf(const vector<LabTest> &input)
+int findMaxInSecondHalf(const vector<LabTest> &LabTests)
 {
     int max = INT_MIN;
-    int n = input.size();
+    int n = LabTests.size();
     for (int i = n / 2; i < n; ++i)
     {
-        max = (max > input[i].getResultValue()) ? max : input[i].getResultValue();
+        max = (max > LabTests[i].getResultValue()) ? max : LabTests[i].getResultValue();
     }
     return max;
 }
@@ -58,7 +58,7 @@ int main()
     cout << "Enter the number of Lab tests:" << endl;
     cin >> n;
 
-    vector<LabTest> input;
+    vector<LabTest> LabTests;
     for (int i = 1; i <= n; ++i)
     {
         string testId;
@@ -66,17 +66,17 @@ int main()
         cout << "Enter test ID and result value for test " << i << ":" << endl;
         cin >> testId >> resultValue;
         LabTest test(testId, resultValue);
-        input.push_back(test);
+        LabTests.push_back(test);
     }
 
-    int result = findSum(input);
-    cout << "The sum of results is: " << result << endl;
+    int result = findSum(LabTests);
+    cout << "sum is: " << result << endl;
 
-    int resultFirstMin = findMinInFirstHalf(input);
-    cout << "The min in first half is: " << resultFirstMin << endl;
+    int resultFirstMin = findMinInFirstHalf(LabTests);
+    cout << "min in first half is: " << resultFirstMin << endl;
 
-    int resultSecondMax = findMaxInSecondHalf(input);
-    cout<<"The max in the second half is :" << resultSecondMax << endl;
+    int resultSecondMax = findMaxInSecondHalf(LabTests);
+    cout<<"max in second half is :" << resultSecondMax << endl;
 
     return 0;
 
