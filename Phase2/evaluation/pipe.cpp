@@ -31,7 +31,7 @@ void client(const vector<LabTest>& labTests, int& write_end_fd1, int& read_end_f
     write(write_end_fd1, &size, sizeof(size));
 
 
-    double resultValues[size];   // resultValues means buffer
+    double resultValues[size]; //here i need to change the buffer into resultValues like array
     for(int i=0;i<labTests.size();i++)
     {
         resultValues[i]=(labTests[i].getResultValue());
@@ -123,3 +123,4 @@ int main() {
     sleep(2);
     return 0;
 }
+
