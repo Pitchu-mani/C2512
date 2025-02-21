@@ -1,0 +1,190 @@
+1. What are Processes?
+A process is an instance of a running program. It consists of:
+
+Code (the actual instructions being executed)
+Data (variables, heap, stack)
+Resources (files, memory, sockets)
+Execution context (process ID, registers, program counter, etc.)
+In Qt, the QProcess class provides a way to start and manage system processes.
+
+2. Basic Process Life Cycle
+The process life cycle consists of several states:
+
+New – The process is created.
+Ready – The process is ready to run.
+Running – The process is executing.
+Blocked – The process is waiting for a resource (e.g., IO).
+Terminated – The process has completed execution.
+Example in Qt (Launching a Process)
+We can create and start a process using QProcess:
+
+#include <QCoreApplication>
+#include <QProcess>
+#include <QDebug>
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+
+    QProcess process;
+    process.start("ping 127.0.0.1");  // Running ping command
+
+    if (process.waitForStarted()) {
+        qDebug() << "Process started successfully!";
+    }
+
+    process.waitForFinished();
+    qDebug() << "Process finished!";
+    
+    return app.exec();
+}
+
+3. Process IO (Input/Output)
+A process interacts with standard input/output streams:
+
+Standard Input (stdin) – Used to provide input to the process.
+Standard Output (stdout) – The normal output of the process.
+Standard Error (stderr) – Error messages from the process.
+Example (Reading Process Output)
+#include <QCoreApplication>
+#include <QProcess>
+#include <QDebug>
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+
+    QProcess process;
+    process.start("ls");  // List directory contents (Linux/Mac)
+
+    if (process.waitForFinished()) {
+        QByteArray output = process.readAllStandardOutput();
+        qDebug() << "Process Output:\n" << output;
+    }
+
+    return app.exec();
+}
+
+4. QSysInfo
+The QSysInfo class provides system-related information.
+
+Example (Retrieving System Info)
+#include <QCoreApplication>
+#include <QSysInfo>
+#include <QDebug>
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+
+    qDebug() << "OS:" << QSysInfo::prettyProductName();
+    qDebug() << "Kernel Version:" << QSysInfo::kernelVersion();
+    qDebug() << "Architecture:" << QSysInfo::currentCpuArchitecture();
+
+    return app.exec();
+}
+
+5. QProcess
+QProcess is a Qt class that allows managing external processes.
+
+Key Features
+Start and stop processes.
+Read standard output and error.
+Send input to the process.
+Example (Executing External Command)
+#include <QCoreApplication>
+#include <QProcess>
+#include <QDebug>
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+
+    QProcess process;
+    process.start("ping", QStringList() << "-c" << "4" << "google.com");
+
+    if (process.waitForFinished()) {
+        qDebug() << "Ping output:\n" << process.readAllStandardOutput();
+    }
+
+    return app.exec();
+}
+6. Working with a Process
+You can interact with a running process:
+
+Starting a process (start())
+Stopping a process (terminate())
+Killing a process (kill())
+Reading/Writing data (readAll() & write())
+Example (Starting and Stopping a Process)
+#include <QCoreApplication>
+#include <QProcess>
+#include <QDebug>
+#include <QThread>
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+
+    QProcess process;
+    process.start("ping", QStringList() << "127.0.0.1");
+
+    QThread::sleep(5);  // Let it run for 5 seconds
+    process.terminate();  // Gracefully stop the process
+    qDebug() << "Process terminated.";
+
+    return app.exec();
+}
+7. Process Custom Commands
+You can execute custom commands by passing parameters to QProcess.
+
+Example (Running a Shell Command)
+#include <QCoreApplication>
+#include <QProcess>
+#include <QDebug>
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+
+    QProcess process;
+    process.start("sh", QStringList() << "-c" << "echo 'Hello from Qt Process!'");
+
+    if (process.waitForFinished()) {
+        qDebug() << "Output:\n" << process.readAllStandardOutput();
+    }
+
+    return app.exec();
+}
+8. Exploring Our Process Life-Cycle
+The QProcess class emits signals that help track the process lifecycle:
+
+stateChanged() – When the process state changes.
+readyReadStandardOutput() – When new output is available.
+finished() – When the process finishes execution.
+
+Example (Monitoring Process State)
+
+#include <QCoreApplication>
+#include <QProcess>
+#include <QDebug>
+
+void processStateChanged(QProcess::ProcessState state) {
+    switch (state) {
+        case QProcess::NotRunning:
+            qDebug() << "Process is not running.";
+            break;
+        case QProcess::Starting:
+            qDebug() << "Process is starting.";
+            break;
+        case QProcess::Running:
+            qDebug() << "Process is running.";
+            break;
+    }
+}
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+
+    QProcess process;
+    QObject::connect(&process, &QProcess::stateChanged, processStateChanged);
+
+    process.start("ping", QStringList() << "-c" << "2" << "google.com");
+    process.waitForFinished();
+
+    return app.exec();
+}
