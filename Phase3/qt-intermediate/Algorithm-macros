@@ -1,0 +1,376 @@
+Algorithm and macros
+
+1.qDeleteAll()
+*qDeleteAll() is a function that deletes all elements in a container of pointers.
+*It is particularly useful for cleaning up lists or other container holding dynamically allocated objects.
+
+=====> SYNTAX  QDeleteAll(container);
+
+The function iterates through the container and calls delete on each pointer.
+The container itself is not cleared; only the objects inside it are deleted.
+Use QDeleteAll() when working with containers that store dynamically allocated objects to prevent memory leaks!
+#include <QCoreApplication>
+#include <QDebug>
+#include <QList>
+#include <QDeleteAll>
+
+class Item {
+public:
+    Item(int val) : value(val) {}
+    int value;
+    ~Item() { qDebug() << "Deleted Item with value:" << value; }
+};
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QList<Item*> itemList; // QList of pointers
+    itemList.append(new Item(10));
+    itemList.append(new Item(20));
+    itemList.append(new Item(30));
+
+    qDebug() << "Before deletion: List size =" << itemList.size();
+
+    QDeleteAll(itemList); // Deletes objects but does NOT clear the list
+
+    itemList.clear(); // Manually clear the list if needed
+
+    qDebug() << "After deletion: List size =" << itemList.size();
+
+    return a.exec();
+}
+
+output:
+Before deletion: List size = 3
+Deleted Item with value: 10
+Deleted Item with value: 20
+Deleted Item with value: 30
+After deletion: List size = 0
+
+⚠ Important Notes
+Does Not Clear the Container
+             QDeleteAll() only deletes the objects inside but does not remove entries from the container.
+             You must manually call .clear() if you want to empty the container.
+Use Only for Containers with Pointers
+             It should only be used for containers that store heap-allocated (new) objects.
+             Do not use it with containers holding non-pointer values.
+Avoid Double Deletion
+             Do not use QDeleteAll() on the same container multiple times unless you ensure it's repopulated with new objects.
+
+
+
+2.Filling a container
+*In Qt, you can fill a container (like QList, QVector, or QMap) in various ways, depending on your requirements
+
+
+Summary
+Method	                            Container	                  Use Case
+fill(value)	                QList, QVector	           Fill all elements with the same value
+std::fill(begin, end, value)	QList, QVector	           Standard C++ method to fill elements
+for loop	                QList, QVector	           Populate with different values
+append(value)	                QList, QVector	           Dynamically add elements
+insert(key, value)	        QMap	                   Store key-value pairs
+
+
+2.1. Using fill() for QList or QVector
+Both QList and QVector provide a fill() method to populate all elements with a specific value.
+
+Example: Using fill() with QList
+#include <QCoreApplication>
+#include <QDebug>
+#include <QList>
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QList<int> list(5); // Create a QList with 5 elements
+    list.fill(7); // Fill all elements with 7
+
+    qInfo() << list; // Output: QList(7, 7, 7, 7, 7)
+
+    return a.exec();
+}
+Output:
+QList(7, 7, 7, 7, 7)
+
+
+2.2. Using std::fill() for QList or QVector
+If you need more control, you can use std::fill() from the C++ Standard Library.
+#include <algorithm> // Include for std::fill
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QList<int> list(10, 0); // Create a QList with 10 elements initialized to 0
+
+    std::fill(list.begin(), list.end(), 5); // Fill all elements with 5
+
+    qInfo() << list; // Output: QList(5, 5, 5, 5, 5, 5, 5, 5, 5, 5)
+
+    return a.exec();
+}
+
+2.3. Filling a Container Using for Loop
+If you need different values at each index, a loop is useful.
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QList<int> list;
+    
+    // Fill QList with numbers 1 to 10
+    for (int i = 1; i <= 10; ++i) {
+        list.append(i);
+    }
+
+    qInfo() << list; // Output: QList(1, 2, 3, ..., 10)
+
+    return a.exec();
+}
+
+
+2.4. Using QList::append() to Populate the List
+You can dynamically add elements using append().
+
+QList<int> list;
+list.append(1);
+list.append(2);
+list.append(3);
+
+2.5. Using QVector Instead of QList
+For performance, QVector is sometimes preferred over QList.
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QVector<int> vec(5); // Create a QVector with 5 elements
+    vec.fill(3); // Fill with 3s
+
+    qInfo() << vec; // Output: QVector(3, 3, 3, 3, 3)
+
+    return a.exec();
+}
+
+
+2.6. Using QMap to Store Key-Value Pairs
+If you want to store data in key-value pairs, QMap is a good choice.
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QMap<QString, int> map;
+    map["Alice"] = 25;
+    map["Bob"] = 30;
+    map["Charlie"] = 28;
+
+    qInfo() << map; // Output: QMap(("Alice", 25), ("Bob", 30), ("Charlie", 28))
+
+    return a.exec();
+}
+
+  
+
+
+3.Sorting a Container in Qt
+*Sorting a container in Qt involves arranging elements in ascending or descending order. Qt supports sorting through both STL algorithms and Qt-specific methods.
+*Sorting QList Using std::sort()
+*Since QList supports iterators, we can use std::sort() from the <algorithm> header.
+
+
+Use std::sort() for QList and custom objects.
+Use QVector::sort() for QVector (faster and easier).
+
+
+
+#include <QCoreApplication>
+#include <QList>
+#include <QDebug>
+#include <QRandomGenerator>
+
+void randoms(QList<int> *list, int max)
+{
+    list->reserve(max);
+    for(int i = 0; i < max; i++)
+    {
+        int value = QRandomGenerator::global()->bounded(1000);
+        list->append(value);
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QList<int> list;
+    randoms(&list,10);
+
+    qInfo() << "Unsorted:" << list;
+
+    //qSort - do not use
+
+    std::sort(list.begin(),list.end());
+    qInfo() << "Sorted:" << list;
+
+    std::reverse(list.begin(),list.end());
+    qInfo() << "Reversed:" << list;
+
+
+
+
+    return a.exec();
+}
+
+
+
+4. Comparing containers  
+Comparing containers in Qt means checking whether two containers are equal (same elements and order) or different.
+
+#include <QCoreApplication>
+#include <QList>
+#include <QDebug>
+#include <QRandomGenerator>
+
+void randoms(QList<int> *list, int max) {
+
+    list->reserve(max);
+
+    for(int i = 0; i < max; i++){
+        int value = QRandomGenerator::global()->bounded(100);
+        list->append(value);
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QList<int> list1;
+    randoms(&list1,10);
+
+    QList<int> list2;
+    randoms(&list2,10);
+
+    qInfo() << list1;
+    qInfo() << list2;
+
+    //qInfo() << "Equal: " << qEqual(list1.begin(), list1.end(), list2.begin());
+    qInfo() << "Equal: " << std::equal(list1.begin(), list1.end(), list2.begin());
+
+    list1.fill(9);
+    list2.fill(9);
+    qInfo() << list1;
+    qInfo() << list2;
+
+    qInfo() << "Equal: " << std::equal(list1.begin(), list1.end(), list2.begin());
+
+    return a.exec();
+}
+
+
+5. Copying containers  
+copy the element of list to another
+
+#include <QCoreApplication>
+#include <QList>
+#include <QDebug>
+#include <QRandomGenerator>
+
+void randoms(QList<int> *list, int max) {
+
+    list->reserve(max);
+
+    for(int i = 0; i < max; i++){
+        int value = QRandomGenerator::global()->bounded(100);
+        list->append(value);
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QList<int> list1;
+    randoms(&list1,10);
+
+    QList<int> list2;
+
+    qInfo() << list1;
+    qInfo() << list2;
+
+    qInfo() << "Copying...";
+    list2.resize(list1.size());
+    std::copy(list1.begin(),list1.end(),list2.begin());
+    qInfo() << "Equal:" << std::equal(list1.begin(),list1.end(),list2.begin());
+
+    qInfo() << list1;
+    qInfo() << list2;
+
+    return a.exec();
+}
+
+
+6. Custom macro  
+Make a custom macro
+
+#include <QCoreApplication>
+#include <QDebug>
+
+//Custom macro
+#define add(a,b) a+b
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    //Easy...but dangerous
+    qInfo() << add(1,2);
+
+    //Lets break it
+    //    qInfo() << add("Test",22);
+    //    qInfo() << add(true,true);
+    //    qInfo() << add(false, true);
+    //    qInfo() << add(false, false);
+    //    qInfo() << add("Test",'\n');
+    //    qInfo() << add("Test",'/n');
+
+    return a.exec();
+}
+
+
+7. TypeDef
+*typedef creates an alias People for QMap<QString, int>.
+*typedef helps create shorter and cleaner type names.
+*People now behaves as QMap<QString, int>.
+/*
+
+  Why
+  Make your own data types
+
+ */
+
+#include <QCoreApplication>
+#include <QDebug>
+#include <QMap>
+
+typedef QMap<QString,int> People;
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    People p;
+    p.insert("Bryan", 45);
+    p.insert("Tammy", 50);
+    p.insert("Rango", 15);
+
+    foreach(auto k, p.keys())
+    {
+        qInfo() << k << p[k];
+    }
+
+    return a.exec();
+}
