@@ -1,0 +1,112 @@
+QSettings
+
+*QSettings is a class in Qt
+*QSettings that provides an easy way to store and retrieve application settings
+*when creating a QSettings object , you must pass the name of your organization as well as the name of your application
+
+
+
+*The QSettings class provides platform independent application settings(window size and position and options etc)
+
+step1:
+=====================================
+=     Application (save)            =
+=                                   =
+=        x=2                        =    =============>   storage
+=                                   =
+=        y=2                        =
+=                                   =
+=                                   =
+=====================================
+
+application settings persist in the file system
+
+step2:
+=====================================
+=     Application (load)            =
+=                                   =
+=        x=2                        =    <============= storage
+=                                   =
+=        y=2                        =
+=                                   =
+=                                   =
+=====================================
+
+
+Functions :
+
+1.settings.status();
+
+The following status values are possible
+constant                            value                         description
+QSettings::Noerror                   0                        No error occurred
+QSettings::AccessError               1                        An access error occurred(eg: trying to write to reead only file)
+QSettings::FormatError               2                        A Format error occurred(eg:loading a malformat inifile)
+
+2.settings.sync();  // save
+*Write any unsaved changes to permanent storage and reloads any settings that have been changed in the meantime by another application.
+
+3.Iniformat in Qt
+*QSettings:Iniformat is used to store application settings in human readable  .inifile
+*pass QSettings:Iniformat when creating a QSettings object 
+
+
+
+
+#include <QCoreApplication>
+#include <QtDebug>
+#include <QSettings>
+
+void info(QSettings &settings)
+{
+    qInfo() << "File:" << settings.fileName();
+    qInfo() << "Keys:" << settings.allKeys();
+}
+void save(QSettings &settings)
+{
+    //settings.setValue("test",123);
+    settings.value("test",1243);
+    //settings.sync();
+    qInfo() << settings.status();
+    qInfo() <<"Saved: ";
+}
+void load(QSettings &settings)
+{
+    info(settings);
+
+    qInfo() << settings.value("test").toString();
+    bool ok;
+    qInfo() << settings.value("test").toInt(&ok);
+    if(!ok)
+    {
+        //something bad happened
+        qInfo() << "Could not convert to int";
+    }
+}
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QCoreApplication::setOrganizationName("Voidrealms");
+    QCoreApplication::setOrganizationDomain("Voidrealms.com");
+    QCoreApplication::setApplicationName("Tester");
+    //QSettings settings;
+    QSettings settings(QCoreApplication::organizationName(),QCoreApplication::applicationName());
+    if(settings.allKeys().length()==0)
+    {
+        qInfo() << "No setting .. saving";
+        save(settings);
+    }
+    else
+    {
+        qInfo()<<"Loading the settings";
+        load(settings);
+    }
+
+
+    return a.exec();
+}
+
+
+13,14
+
